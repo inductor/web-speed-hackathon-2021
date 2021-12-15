@@ -3,6 +3,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const SRC_PATH = path.resolve(__dirname, './src');
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
@@ -35,6 +37,10 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        use: ['html-loader'],
+      },
+      {
         exclude: /node_modules/,
         test: /\.jsx?$/,
         use: [{ loader: 'babel-loader' }],
@@ -50,7 +56,7 @@ const config = {
     ],
   },
   output: {
-    filename: 'scripts/[name].js',
+    filename: 'scripts/[name].[contenthash].js',
     path: DIST_PATH,
   },
   plugins: [
@@ -67,10 +73,10 @@ const config = {
       NODE_ENV: 'development',
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
+      filename: 'styles/[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      inject: false,
+      inject: 'head',
       template: path.resolve(SRC_PATH, './index.html'),
     }),
   ],
@@ -80,6 +86,12 @@ const config = {
       fs: false,
       path: false,
     },
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserPlugin(),
+    ],
   },
 };
 

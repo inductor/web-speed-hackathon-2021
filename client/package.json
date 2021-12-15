@@ -13,7 +13,9 @@
     "buffer": "6.0.3",
     "classnames": "2.3.1",
     "core-js": "3.19.1",
+    "css-minimizer-webpack-plugin": "^3.2.0",
     "fast-average-color": "7.0.1",
+    "html-loader": "^3.0.1",
     "image-size": "1.0.0",
     "jquery": "3.6.0",
     "jquery-binarytransport": "1.0.0",
@@ -29,6 +31,7 @@
     "regenerator-runtime": "0.13.9",
     "standardized-audio-context": "25.3.15",
     "tailwindcss": "2.2.19",
+    "terser-webpack-plugin": "^5.2.5",
     "wicg-inert": "3.1.1"
   },
   "devDependencies": {
